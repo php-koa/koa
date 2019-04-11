@@ -1,4 +1,4 @@
-```# koa-php
+```# koa
 参考koajs基于swoole开发的PHP web框架，核心只提供中间件功能和请求调度，其他组件全部为中间件
 
 ## Install
