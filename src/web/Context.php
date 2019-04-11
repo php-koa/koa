@@ -45,5 +45,5 @@ class Context extends BaseObject
     /**
      * @var mixed 响应体
      */
-    public $body;
+    public $body = '';
 }

@@ -26,11 +26,11 @@ class FlushMiddleware implements Middleware
         return function (Context $ctx, $next) {
             $next($ctx);
             $ctx->response->status($ctx->statusCode);
-            if (is_string($ctx->body)) {
-                $ctx->response->end($ctx->body);
-            } else {
+            if (is_array($ctx->body) || is_object($ctx->body)) {
                 $ctx->response->header('Content-Type', 'application/json;charset=utf-8');
                 $ctx->response->end(json_encode($ctx->body, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+            } else {
+                $ctx->response->end($ctx->body);
             }
         };
     }
