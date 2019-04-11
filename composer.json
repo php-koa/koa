@@ -1,0 +1,24 @@
+{
+  "name": "xialeistudio/koa",
+  "description": "a koa-like web framework",
+  "version": "0.0.1",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "xialeistudio",
+      "email": "xialeistudio@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {},
+  "require-dev": {
+    "eaglewu/swoole-ide-helper": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "koa\\": "src/",
+      "tests\\": "tests/"
+    }
+  }
+}
