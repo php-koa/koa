@@ -13,6 +13,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $app = new Application();
 $app->container->set(Connection::class, [
+    'class' => Connection::class,
     'config' => [
         'host' => 'localhost',
         'port' => 3306,

@@ -7,6 +7,7 @@
 namespace koa\di;
 
 use koa\base\BaseObject;
+use koa\base\InvalidConfigException;
 
 /**
  * 容器类
@@ -32,9 +33,13 @@ class Container extends BaseObject
      * 设置实例类
      * @param string $class
      * @param array $params
+     * @throws InvalidConfigException
      */
     public function set($class, $params = [])
     {
+        if (empty($params['class'])) {
+            throw new InvalidConfigException("The 'class' options is required");
+        }
         $this->_definitions[$class] = null;
         unset($this->_singletons[$class]);
         $this->_params[$class] = $params;
@@ -44,9 +49,13 @@ class Container extends BaseObject
      * 设置单例类
      * @param string $class
      * @param array $params
+     * @throws InvalidConfigException
      */
     public function setSingleton($class, $params = [])
     {
+        if (empty($params['class'])) {
+            throw new InvalidConfigException("The 'class' options is required");
+        }
         $this->_singletons[$class] = null;
         unset($this->_definitions[$class]);
         $this->_params[$class] = $params;
@@ -66,13 +75,15 @@ class Container extends BaseObject
         }
 
         $params = array_merge($this->_params[$class], $params);
+        $className = $params['class'];
+        unset($params['class']);
         if (array_key_exists($class, $this->_singletons)) {
-            $this->_singletons[$class] = new $class($params);
+            $this->_singletons[$class] = new $className($params);
             return $this->_singletons[$class];
         }
 
         if (array_key_exists($class, $this->_definitions)) {
-            return new $class($params);
+            return new $className($params);
         }
 
         throw new ClassNotFoundException("Class $class not found");

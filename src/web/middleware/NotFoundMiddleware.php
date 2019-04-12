@@ -7,6 +7,7 @@
 namespace koa\web\middleware;
 
 
+use koa\base\BaseObject;
 use koa\base\Middleware;
 use koa\web\Context;
 
@@ -14,7 +15,7 @@ use koa\web\Context;
  * Class NotFoundMiddleware
  * @package koa\web\middleware
  */
-class NotFoundMiddleware implements Middleware
+class NotFoundMiddleware extends BaseObject implements Middleware
 {
 
     /**

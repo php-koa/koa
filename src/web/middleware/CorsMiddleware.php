@@ -7,6 +7,7 @@
 namespace koa\web\middleware;
 
 
+use koa\base\BaseObject;
 use koa\base\Middleware;
 use koa\web\Context;
 
@@ -15,7 +16,7 @@ use koa\web\Context;
  * Class CorsMiddleware
  * @package koa\web\middleware
  */
-class CorsMiddleware implements Middleware
+class CorsMiddleware extends BaseObject implements Middleware
 {
     /**
      * @var array CORS设置

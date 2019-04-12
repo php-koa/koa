@@ -15,6 +15,8 @@ composer require xialeistudio/koa
 ## Builtin Middlewares
 + Router
 + Logger
++ CORS
++ Cache
 
 ## Contributing
 

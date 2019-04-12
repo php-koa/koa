@@ -4,35 +4,37 @@
  * @date 2019-04-09
  */
 
-namespace koa\swoole\caching;
+namespace koa\caching;
 
-use koa\caching\Cache;
 use Swoole\Coroutine\Redis;
 
 /**
  * swoole Redis缓存
  * Class RedisCache
- * @package koa\swoole\caching
+ * @package koa\caching
  */
 class RedisCache extends Cache
 {
     /**
-     * @var array 连接选项
+     * @var string 连接主机
      */
-    private $options = [];
+    public $host = 'localhost';
+    /**
+     * @var int 连接端口
+     */
+    public $port = 6379;
+    /**
+     * @var float 超时
+     */
+    public $timeout = 0.0;
+    /**
+     * @var string 连接密码
+     */
+    public $password = '';
     /**
      * @var Redis
      */
     private $redis;
-
-    /**
-     * RedisCache constructor.
-     * @param array $options
-     */
-    public function __construct(array $options)
-    {
-        $this->options = $options;
-    }
 
     /**
      * 打开Redis连接
@@ -43,9 +45,9 @@ class RedisCache extends Cache
             return;
         }
         $this->redis = new Redis();
-        $this->redis->connect($this->options['host'], $this->options['port'] ?? 6379, $this->options['timeout'] ?? 0.0);
-        if (!empty($this->options['password'])) {
-            $this->redis->auth($this->options['password']);
+        $this->redis->connect($this->host, $this->port, $this->timeout);
+        if (!empty($this->password)) {
+            $this->redis->auth($this->password);
         }
     }
 

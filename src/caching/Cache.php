@@ -6,12 +6,14 @@
 
 namespace koa\caching;
 
+use koa\base\BaseObject;
+
 /**
  * 缓存
  * Class Cache
  * @package koa\caching
  */
-abstract class Cache implements CacheInterface
+abstract class Cache extends BaseObject implements CacheInterface
 {
     /**
      * @param string $key
@@ -22,7 +24,7 @@ abstract class Cache implements CacheInterface
     public function getOrSet($key, callable $callable, $duration = 0)
     {
         $data = $this->get($key);
-        if (false !== $data) {
+        if (!empty($data)) {
             return $data;
         }
         $data = call_user_func($callable);

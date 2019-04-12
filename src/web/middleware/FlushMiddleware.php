@@ -7,6 +7,7 @@
 namespace koa\web\middleware;
 
 
+use koa\base\BaseObject;
 use koa\base\Middleware;
 use koa\web\Context;
 
@@ -15,7 +16,7 @@ use koa\web\Context;
  * Class FlushMiddleware
  * @package koa\web\middleware
  */
-class FlushMiddleware implements Middleware
+class FlushMiddleware extends BaseObject implements Middleware
 {
     /**
      * 请求处理接口

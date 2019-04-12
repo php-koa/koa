@@ -6,6 +6,7 @@
 
 namespace koa\web\middleware;
 
+use koa\base\BaseObject;
 use koa\base\Middleware;
 use koa\web\Context;
 
@@ -14,7 +15,7 @@ use koa\web\Context;
  * Class LoggerMiddleware
  * @package koa\web\middleware
  */
-class LoggerMiddleware implements Middleware
+class LoggerMiddleware extends BaseObject implements Middleware
 {
     /**
      * 请求处理接口
@@ -25,12 +26,16 @@ class LoggerMiddleware implements Middleware
         return function (Context $ctx, $next) {
             $start = microtime(true);
             $next($ctx);
+            $url = $ctx->request->server['path_info'];
+            if (!empty($ctx->request->server['query_string'])) {
+                $url .= '?' . $ctx->request->server['query_string'];
+            }
             printf(
                 "[%s] %s [%d]: %s %.6fs\n",
                 date('Y-m-d H:i:s'),
                 $ctx->request->header['x-forwarded-for'] ?? $ctx->request->server['remote_addr'],
                 $ctx->statusCode,
-                $ctx->request->server['path_info'],
+                $url,
                 microtime(true) - $start
             );
         };
